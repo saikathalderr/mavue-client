@@ -1,14 +1,33 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Home from "./container/Home";
+import Home from "./pages/Home";
+import {createTheme, ThemeProvider} from "@mui/material";
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#3FD4F4',
+        },
+        secondary: {
+            main: '#987EFF',
+        },
+        error: {
+            main: '#FD849F'
+        },
+        info: {
+            main: '#2FD1F3',
+        },
+        warning: {
+            main: '#F9BA00',
+        }
+    },
+});
 
 function App() {
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
+        <ThemeProvider theme={theme}>
+            <Home/>
+        </ThemeProvider>
     </div>
   );
 }
