@@ -1,0 +1,116 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.main {
+  min-height: 100vh;
+}
+.layout-wrapper {
+  min-height: 100vh;
+}
+.left {
+  background-color: #87ceeb;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.right {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.tasks-wrapper {
+  margin-top: 0.5rem;
+  background-color: #f7f7f7;
+}
+.auth-form {
+  width: 500px;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin: auto auto;
+  border-radius: 5px;
+}
+.auth-form .form-title {
+  text-align: center;
+}
+
+.error {
+  padding: 1rem;
+  background-color: rgb(187, 135, 119);
+  color: red;
+}
+
+.task-link-wrapper {
+  display: flex;
+}
+.task-link {
+  padding: 0.7rem 1rem;
+  text-decoration: none;
+  background-color: #222;
+  color: #fff;
+}
+
+.task-link:hover {
+  color: #222;
+  background: skyblue;
+}
+
+.wrapper {
+  display: flex;
+}
+
+.wrapper .sidebar {
+  width: 20%;
+  border: 1px solid #ccc;
+  background-color: skyblue;
+  text-align: center;
+}
+.wrapper .main {
+  width: 80%;
+  padding: 1rem;
+}
+.task {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+}
+.task + .task {
+  margin-top: 10px;
+}
+.task span {
+  font-size: 1.2rem;
+  font-weight: normal;
+}
+
+.task h3 {
+  font-size: 1rem;
+  color: rgb(77, 69, 69);
+}
+
+.pos-center {
+  position: fixed;
+  top: calc(50% - 40px);
+  left: calc(50% - 40px);
+}
+
+.loader {
+  border: 10px solid #f3f3f3;
+  border-top: 10px solid #3498db;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
