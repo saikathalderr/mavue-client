@@ -26,7 +26,7 @@ const ChapterItem = ({ article }: { article: IChapter }) => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={5}>
             <Grid container alignItems="center">
               <Grid item xs={3}>
                 {article.recurringInterval ? (
