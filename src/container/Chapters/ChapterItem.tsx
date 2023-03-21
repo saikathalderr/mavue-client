@@ -1,5 +1,11 @@
 import { IChapter } from "./interface";
-import { Delete, Brightness1, AccessTimeFilled } from "@mui/icons-material";
+import {
+  Delete,
+  Brightness1,
+  AccessTimeFilled,
+  AccountCircle,
+  CloudDownload,
+} from "@mui/icons-material";
 import { Card, Chip, Grid, Typography, IconButton } from "@mui/material";
 
 const ChapterItem = ({ article }: { article: IChapter }) => {
@@ -42,6 +48,7 @@ const ChapterItem = ({ article }: { article: IChapter }) => {
                 <Chip
                   color="info"
                   size="small"
+                  icon={<AccountCircle />}
                   label={
                     <Typography
                       variant="subtitle2"
@@ -56,6 +63,13 @@ const ChapterItem = ({ article }: { article: IChapter }) => {
               <Grid item xs={2}></Grid>
               <Grid item xs={4}>
                 <Grid container alignItems="center" justifyContent="end">
+                  <IconButton
+                    color="secondary"
+                    aria-label="download chapter PDF"
+                    component="label"
+                  >
+                    <CloudDownload />
+                  </IconButton>
                   <IconButton
                     color="error"
                     aria-label="delete chapter"

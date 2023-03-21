@@ -2,6 +2,10 @@ import ChapterItem from "./ChapterItem";
 import { CHAPTER_QUERY } from "./graphql/chapter.query";
 import { IChapter } from "./interface";
 import { useQuery } from "@apollo/client";
+import {Button, Stack} from "@mui/material";
+import {
+  Add
+} from "@mui/icons-material";
 
 const Chapters = () => {
   const { loading, error, data } = useQuery(CHAPTER_QUERY);
@@ -11,6 +15,9 @@ const Chapters = () => {
 
   return (
     <>
+      <Stack direction="row-reverse" spacing={2}>
+        <Button variant="contained" startIcon={<Add />}>Create</Button>
+      </Stack>
       {data.chapters.map((article: IChapter, idx: number) => (
         <ChapterItem key={idx + 1} article={article} />
       ))}
