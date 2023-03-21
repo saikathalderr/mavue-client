@@ -22,9 +22,9 @@ const MenuItem = ({ menu }: { menu: IMenu }) => {
            </ListItem>
 
            {
-               menu.items.map((item: IChildMenu) => {
+               menu.items.map((item: IChildMenu, idx: number) => {
                    return (
-                       <ListItem disablePadding dense>
+                       <ListItem disablePadding dense key={'menu-child-item-'+idx+1}>
                            <ListItemButton onClick={() => navigate(item.path)}>
                                <ListItemText inset primary={
                                   <>

@@ -1,8 +1,8 @@
-import { Box } from "@mui/material";
+import {Box, Container} from "@mui/material";
 import AppDrawer from '../container/AppDrawer'
 import {Route, Routes} from "react-router-dom";
 import React from "react";
-import ArticlesPage from "./Articles";
+import ArticlesPage from "./Chapters";
 import UsersPage from "./Users";
 
 const Home = () => {
@@ -19,10 +19,14 @@ const Home = () => {
             overflow: 'auto',
           }}
       >
-          <Routes>
-              <Route path="/articles" element={<ArticlesPage />} />
-              <Route path="/users" element={<UsersPage />} />
-          </Routes>
+          <Container maxWidth="md" sx={{
+              paddingY: 10
+          }}>
+              <Routes>
+                  <Route path="/chapters" element={<ArticlesPage />} />
+                  <Route path="/users" element={<UsersPage />} />
+              </Routes>
+          </Container>
       </Box>
     </Box>
     </>

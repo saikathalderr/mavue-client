@@ -14,8 +14,8 @@ export default function Menu() {
             path: '',
             items: [
                 {
-                    title: 'Articles',
-                    path: '/articles',
+                    title: 'Chapters',
+                    path: '/chapters',
                     iconColor: 'error',
                     icon: Brightness1Icon
                 },
@@ -26,7 +26,7 @@ export default function Menu() {
                     icon: Brightness1Icon
                 },
                 {
-                    title: 'Tasks',
+                    title: 'Home',
                     path: '',
                     iconColor: 'warning',
                     icon: Brightness1Icon
@@ -40,8 +40,8 @@ export default function Menu() {
             aria-label="contacts"
         >
             {
-                menuItems.map((menu: IMenu) => {
-                    return <MenuItem menu={menu} />
+                menuItems.map((menu: IMenu, idx: number) => {
+                    return <MenuItem key={'menu-item-'+idx+1} menu={menu} />
                 })
             }
         </List>
