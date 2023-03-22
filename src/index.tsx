@@ -7,10 +7,12 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+
+const options = {}
 const client = new ApolloClient({
   // TODO: Remove this url to the environment variable. most especially the port
   uri: `http://localhost:4000/graphql`,
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache(options),
 });
 
 const root = ReactDOM.createRoot(

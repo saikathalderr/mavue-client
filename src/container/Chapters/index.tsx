@@ -1,5 +1,5 @@
 import ChapterItem from "./ChapterItem";
-import { CHAPTER_QUERY } from "./graphql/chapter.query";
+import { CHAPTER_QUERY } from "../../grql/query/chapter.query";
 import { IChapter } from "./interface";
 import { useQuery } from "@apollo/client";
 import {Button, Stack} from "@mui/material";
