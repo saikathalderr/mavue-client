@@ -7,8 +7,11 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+import typePolicies from './grql/cache.typePolicies'
 
-const options = {}
+const options = {
+    typePolicies
+}
 const client = new ApolloClient({
   // TODO: Remove this url to the environment variable. most especially the port
   uri: `http://localhost:4000/graphql`,
