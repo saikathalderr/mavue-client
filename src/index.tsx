@@ -11,8 +11,6 @@ const options = {
   typePolicies,
 };
 
-console.log(process.env.SERVER_URL);
-
 const client = new ApolloClient({
   uri: process.env.SERVER_URL,
   cache: new InMemoryCache(options),
