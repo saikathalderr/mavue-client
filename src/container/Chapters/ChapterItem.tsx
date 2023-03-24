@@ -24,7 +24,7 @@ const ChapterItem = ({ article }: { article: IChapter }) => {
           </Grid>
           <Grid item xs={6}>
             <Grid container spacing={2} alignItems="center">
-              <Grid item xs={"auto"}>
+              <Grid item xs={4}>
                 <Typography variant="subtitle2" component="h1" noWrap>
                   <b>{article.title}</b>
                 </Typography>
