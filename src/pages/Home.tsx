@@ -5,7 +5,7 @@ import CreateUserPage from "./User/createUser.page";
 import { Box, Container } from "@mui/material";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import CreateChapterPage from "./Chapter/createChapter.page";
+import UpdateChapterPage from "./Chapter/updateChapter.page";
 
 const Home = () => {
   return (
@@ -30,7 +30,7 @@ const Home = () => {
             <Routes>
               <Route path="/" element={<ArticlesPage />} />
               <Route path="/chapters" element={<ArticlesPage />} />
-                <Route path="/chapters/edit/:id" element={<CreateChapterPage />} />
+                <Route path="/chapters/edit/:id" element={<UpdateChapterPage />} />
                 <Route path="/users" element={<UsersPage />} />
               <Route path="/users/create" element={<CreateUserPage />} />
             </Routes>
