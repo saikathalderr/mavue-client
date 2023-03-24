@@ -1,7 +1,7 @@
 import React from "react";
-import { CHAPTER_PAGE_TITLE, CHAPTER_PAGE_SUB_TITLE } from "../constants";
-import PageHeader from "../container/PageHeader";
-import Chapters from "../container/Chapters";
+import { CHAPTER_PAGE_TITLE, CHAPTER_PAGE_SUB_TITLE } from "../../constants";
+import PageHeader from "../../container/PageHeader";
+import Chapters from "../../container/Chapters";
 
 const ChaptersPage = () => {
     return (

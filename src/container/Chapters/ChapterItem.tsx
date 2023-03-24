@@ -1,17 +1,21 @@
 import { IChapter } from "./interface";
 import {
-  Delete,
   Brightness1,
   AccessTimeFilled,
   AccountCircle,
-  CloudDownload,
 } from "@mui/icons-material";
-import { Card, Chip, Grid, Typography, IconButton } from "@mui/material";
+import { Card, Chip, Grid, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const ChapterItem = ({ article }: { article: IChapter }) => {
+  const navigate = useNavigate();
+
   return (
     <>
-      <Card sx={{ padding: 2, my: 2, borderRadius: 4 }}>
+      <Card
+        sx={{ padding: 2, my: 2, borderRadius: 4, cursor: "pointer" }}
+        onClick={() => navigate(`/chapters/edit/${article.id}`)}
+      >
         <Grid container spacing={0} alignItems="center">
           <Grid item xs={1}>
             <Brightness1 fontSize="inherit" color="error" />
@@ -20,13 +24,13 @@ const ChapterItem = ({ article }: { article: IChapter }) => {
           </Grid>
           <Grid item xs={6}>
             <Grid container spacing={2} alignItems="center">
-              <Grid item xs={"auto"}>
-                <Typography variant="subtitle2" component="h1">
+              <Grid item xs={'auto'}>
+                <Typography variant="subtitle2" component="h1" noWrap>
                   <b>{article.title}</b>
                 </Typography>
               </Grid>
-              <Grid item xs={"auto"}>
-                <Typography variant="subtitle2" component="h1">
+              <Grid item xs={8}>
+                <Typography variant="subtitle2" component="h1" noWrap>
                   {article.requirements}
                 </Typography>
               </Grid>
@@ -45,40 +49,25 @@ const ChapterItem = ({ article }: { article: IChapter }) => {
                 ) : null}
               </Grid>
               <Grid item xs={3}>
-                <Chip
-                  color="info"
-                  size="small"
-                  icon={<AccountCircle />}
-                  label={
-                    <Typography
-                      variant="subtitle2"
-                      component="h1"
-                      color="white"
-                    >
-                      <b>{article.assignedTo.firstName}</b>
-                    </Typography>
-                  }
-                />
+                {article?.assignedTo ? (
+                  <Chip
+                    color="info"
+                    size="small"
+                    icon={<AccountCircle />}
+                    label={
+                      <Typography
+                        variant="subtitle2"
+                        component="h1"
+                        color="white"
+                      >
+                        <b>{article?.assignedTo?.firstName}</b>
+                      </Typography>
+                    }
+                  />
+                ) : null}
               </Grid>
               <Grid item xs={2}></Grid>
-              <Grid item xs={4}>
-                <Grid container alignItems="center" justifyContent="end">
-                  <IconButton
-                    color="secondary"
-                    aria-label="download chapter PDF"
-                    component="label"
-                  >
-                    <CloudDownload />
-                  </IconButton>
-                  <IconButton
-                    color="error"
-                    aria-label="delete chapter"
-                    component="label"
-                  >
-                    <Delete />
-                  </IconButton>
-                </Grid>
-              </Grid>
+              <Grid item xs={4}></Grid>
             </Grid>
           </Grid>
         </Grid>

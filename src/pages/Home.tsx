@@ -1,10 +1,11 @@
 import AppDrawer from "../container/AppDrawer";
-import ArticlesPage from "./Chapters";
+import ArticlesPage from "./Chapter";
 import UsersPage from "./User";
 import CreateUserPage from "./User/createUser.page";
 import { Box, Container } from "@mui/material";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import CreateChapterPage from "./Chapter/createChapter.page";
 
 const Home = () => {
   return (
@@ -27,9 +28,10 @@ const Home = () => {
             }}
           >
             <Routes>
-                <Route path="/" element={<ArticlesPage />} />
-                <Route path="/chapters" element={<ArticlesPage />} />
-              <Route path="/users" element={<UsersPage />} />
+              <Route path="/" element={<ArticlesPage />} />
+              <Route path="/chapters" element={<ArticlesPage />} />
+                <Route path="/chapters/edit/:id" element={<CreateChapterPage />} />
+                <Route path="/users" element={<UsersPage />} />
               <Route path="/users/create" element={<CreateUserPage />} />
             </Routes>
           </Container>
