@@ -1,20 +1,20 @@
+import App from "./App";
+import typePolicies from "./grql/cache.typePolicies";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-
-import typePolicies from './grql/cache.typePolicies'
 
 const options = {
-    typePolicies
-}
+  typePolicies,
+};
+
+console.log(process.env.SERVER_URL);
+
 const client = new ApolloClient({
-  // TODO: Remove this url to the environment variable. most especially the port
-  uri: `http://localhost:4000/graphql`,
+  uri: process.env.SERVER_URL,
   cache: new InMemoryCache(options),
 });
 
