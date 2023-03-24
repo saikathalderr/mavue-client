@@ -1,16 +1,25 @@
 import {
+  CHAPTER_ALREADY_SUBMITTED,
   CHAPTER_ASSIGNED_TEXT,
   SUBMIT_CHAPTER_FORM_TITLE,
 } from "../../constants";
 import BackButton from "../../container/BackButton";
 import { IChapter } from "../../container/Chapters/interface";
+import AccountChip from "../../container/Users/AccountChip";
 import AssignUserToChapter from "../../container/Users/AssignUserToChapter";
-import { CHAPTER_BY_ID_QUERY } from "../../grql/query/chapter.query";
-import { __getFullName } from "../../helper";
-import { useQuery } from "@apollo/client";
+import { IUser } from "../../container/Users/interface";
 import {
+  CHAPTER_BY_ID_QUERY,
+  UPDATE_CHAPTER_QUERY,
+} from "../../grql/query/chapter.query";
+import { __getFullName } from "../../helper";
+import { useMutation, useQuery } from "@apollo/client";
+import { AccountCircle, Print } from "@mui/icons-material";
+import {
+  Avatar,
   Button,
   Card,
+  Chip,
   Grid,
   Switch,
   TextField,
@@ -18,36 +27,44 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as yup from "yup";
 
 const validationSchema = yup.object({
   text: yup
     .string()
     .min(5, "Answer should be of minimum 5 characters length")
-    .optional(),
-
-  userId: yup.string().optional(),
+    .required("Please fill out your answer"),
 });
 
 const UpdateChapterForm = () => {
   const { id: chapterId } = useParams();
+  const navigate = useNavigate();
   const [assign, setAssign] = useState<boolean>(false);
-
   const { loading, error, data } = useQuery(CHAPTER_BY_ID_QUERY, {
     variables: {
       chapterId,
     },
   });
+  const [updateChapter, { loading: updatingChapter }] =
+    useMutation(UPDATE_CHAPTER_QUERY);
 
   const formik = useFormik({
     initialValues: {
       text: "",
-      userId: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log({ values });
+      updateChapter({
+        variables: {
+          updateChapterId: chapterId,
+          input: {
+            text: values.text,
+          },
+        },
+      }).then(() => {
+        navigate(-1);
+      });
     },
   });
 
@@ -55,6 +72,7 @@ const UpdateChapterForm = () => {
   if (error) return <p>Error : {error.message}</p>;
 
   const chapter: IChapter = data?.chapter;
+  const chapterAssignedUser: IUser | undefined | null = chapter.assignedTo;
 
   if (chapter.assignedTo) {
     return (
@@ -80,7 +98,7 @@ const UpdateChapterForm = () => {
             sx={{ mb: 3 }}
             fontWeight="bolder"
           >
-            {SUBMIT_CHAPTER_FORM_TITLE}
+            {chapter.text ? chapter.title : SUBMIT_CHAPTER_FORM_TITLE}
           </Typography>
         </div>
         <div>
@@ -95,59 +113,96 @@ const UpdateChapterForm = () => {
           <Typography variant="subtitle2" gutterBottom>
             {chapter.requirements}
           </Typography>
-          <Typography
-            variant="subtitle2"
-            gutterBottom
-            color="secondary"
-            fontWeight="bolder"
-            sx={{
-              mt: 2,
-            }}
-          >
-            Don't know the answer? assign someone else
-            <Switch checked={assign} onChange={() => setAssign(!assign)} />
-          </Typography>
+          {chapter.text ? (
+            <>
+              <Typography
+                variant="subtitle1"
+                gutterBottom
+                color="secondary"
+                fontWeight="bolder"
+              >
+                Answer
+              </Typography>
+              <Typography variant="subtitle2" gutterBottom sx={{ mb: 2 }}>
+                {chapter.text}
+              </Typography>
+              <AccountChip
+                firstName={
+                  chapterAssignedUser ? chapterAssignedUser?.firstName : "Admin"
+                }
+              />
+            </>
+          ) : null}
         </div>
-        <form onSubmit={formik.handleSubmit}>
-          {assign ? (
-            <AssignUserToChapter chapterId={chapterId} />
-          ) : (
-            <Grid
-              container
-              spacing={2}
-              alignItems="center"
+
+        {!chapter.text ? (
+          <form onSubmit={formik.handleSubmit}>
+            <Typography
+              variant="subtitle2"
+              gutterBottom
+              color="secondary"
+              fontWeight="bolder"
               sx={{
-                mt: 5,
+                mt: 2,
               }}
             >
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  id="text"
-                  name="text"
-                  label="Answer"
-                  multiline
-                  value={formik.values.text}
-                  onChange={formik.handleChange}
-                  error={formik.touched.text && Boolean(formik.errors.text)}
-                  helperText={formik.touched.text && formik.errors.text}
-                  rows={4}
-                />
+              Don't know the answer? assign someone else
+              <Switch
+                disabled={updatingChapter || loading}
+                checked={assign}
+                onChange={() => setAssign(!assign)}
+              />
+            </Typography>
+            {assign ? (
+              <AssignUserToChapter chapterId={chapterId} />
+            ) : (
+              <Grid
+                container
+                spacing={2}
+                alignItems="center"
+                sx={{
+                  mt: 5,
+                }}
+              >
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    id="text"
+                    name="text"
+                    label="Answer"
+                    multiline
+                    value={formik.values.text}
+                    onChange={formik.handleChange}
+                    error={formik.touched.text && Boolean(formik.errors.text)}
+                    helperText={formik.touched.text && formik.errors.text}
+                    rows={4}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    fullWidth
+                    type="submit"
+                    disabled={updatingChapter}
+                  >
+                    {updatingChapter ? "Submitting.." : "Submit"}
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  fullWidth
-                  type="submit"
-                  disabled={false}
-                >
-                  {false ? "Submitting.." : "Submit"}
-                </Button>
-              </Grid>
-            </Grid>
-          )}
-        </form>
+            )}
+          </form>
+        ) : (
+          <Button
+            fullWidth
+            variant="contained"
+            color="error"
+            startIcon={<Print />}
+            sx={{ mt: 2 }}
+          >
+            Print
+          </Button>
+        )}
       </Card>
     </>
   );

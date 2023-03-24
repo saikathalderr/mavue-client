@@ -1,8 +1,8 @@
+import AccountChip from "../Users/AccountChip";
 import { IChapter } from "./interface";
 import {
   Brightness1,
   AccessTimeFilled,
-  AccountCircle,
 } from "@mui/icons-material";
 import { Card, Chip, Grid, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -24,7 +24,7 @@ const ChapterItem = ({ article }: { article: IChapter }) => {
           </Grid>
           <Grid item xs={6}>
             <Grid container spacing={2} alignItems="center">
-              <Grid item xs={'auto'}>
+              <Grid item xs={"auto"}>
                 <Typography variant="subtitle2" component="h1" noWrap>
                   <b>{article.title}</b>
                 </Typography>
@@ -50,19 +50,8 @@ const ChapterItem = ({ article }: { article: IChapter }) => {
               </Grid>
               <Grid item xs={3}>
                 {article?.assignedTo ? (
-                  <Chip
-                    color="info"
-                    size="small"
-                    icon={<AccountCircle />}
-                    label={
-                      <Typography
-                        variant="subtitle2"
-                        component="h1"
-                        color="white"
-                      >
-                        <b>{article?.assignedTo?.firstName}</b>
-                      </Typography>
-                    }
+                  <AccountChip
+                    firstName={article?.assignedTo?.firstName}
                   />
                 ) : null}
               </Grid>

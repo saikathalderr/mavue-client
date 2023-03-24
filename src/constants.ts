@@ -6,4 +6,5 @@ export const USER_PAGE_SUB_TITLE = 'List of users for today'
 export const CREATE_USER_FORM_TITLE = 'Create a new user'
 export const SUBMIT_CHAPTER_FORM_TITLE = 'Submit this chapter'
 
-export const CHAPTER_ASSIGNED_TEXT = 'This chapter is already assigned to - '
+export const CHAPTER_ASSIGNED_TEXT = 'This chapter is assigned to - '
+export const CHAPTER_ALREADY_SUBMITTED = 'This chapter is already submitted by - '
