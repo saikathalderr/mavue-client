@@ -1,12 +1,20 @@
-import { DELETE_USER_MUTATION } from "../../grql/mutation/user.mutation";
-import { USERS_QUERY } from "../../grql/query/user.query";
-import { IUser } from "./interface";
-import { useMutation } from "@apollo/client";
+import {
+  Backdrop,
+  Card,
+  CircularProgress,
+  Grid,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { Brightness1, Delete } from "@mui/icons-material";
-import { Card, Grid, IconButton, Typography } from "@mui/material";
+
+import { DELETE_USER_MUTATION } from "../../grql/mutation/user.mutation";
+import { IUser } from "./interface";
+import { USERS_QUERY } from "../../grql/query/user.query";
+import { useMutation } from "@apollo/client";
 
 const UserItem = ({ user }: { user: IUser }) => {
-  const [deleteUser] = useMutation(DELETE_USER_MUTATION);
+  const [deleteUser, { loading }] = useMutation(DELETE_USER_MUTATION);
 
   const onDeleteUser = () => {
     deleteUser({
@@ -31,6 +39,12 @@ const UserItem = ({ user }: { user: IUser }) => {
   return (
     <>
       <Card sx={{ padding: 2, my: 2, borderRadius: 4 }}>
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={loading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
         <Grid container spacing={0} alignItems="center">
           <Grid item xs={1}>
             <Brightness1 fontSize="inherit" color="info" />
